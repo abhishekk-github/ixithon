@@ -13,21 +13,20 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_user_list"
     tools:context="com.example.ixithon.UserListActivity">
-  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:orientation="vertical">
-
-
-    <ListView android:id="@+id/listView1" android:layout_width="fill_parent"
-              android:layout_height="fill_parent"/>
-
-    <Button
-        android:id="@+id/ConfirmList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Send Invitation"/>
-
+  <LinearLayout
+      xmlns:android="http://schemas.android.com/apk/res/android"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:orientation="vertical">
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
   </LinearLayout>
-
+  <Button
+      android:layout_alignParentBottom="true"
+      android:id="@+id/ConfirmList"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Send Invitation"/>
 </RelativeLayout>

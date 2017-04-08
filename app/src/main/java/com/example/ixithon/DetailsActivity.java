@@ -19,12 +19,14 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.example.ixithon.model.CityDescription;
 import com.example.ixithon.model.Plan;
+import com.example.ixithon.model.TravellerInvite;
 import com.example.ixithon.network.SingltonRequestQueue;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 public class DetailsActivity extends AppCompatActivity {
 
@@ -52,7 +54,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         Intent intent = new Intent(DetailsActivity.this, UserListActivity.class);
         // intent.putExtra("CityID", items.getID());
-        startActivity(intent);
+        startActivityForResult(intent,101);
       }
     });
 
@@ -100,5 +102,12 @@ public class DetailsActivity extends AppCompatActivity {
         });
     RequestQueue requestQueue = SingltonRequestQueue.getInstance(this).getRequestQueue();
     requestQueue.add(stringRequest);
+  }
+
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    Bundle bundle = data.getExtras();
+    ArrayList<TravellerInvite> userlist = (ArrayList<TravellerInvite>) bundle.getSerializable("selectedUser");
   }
 }
