@@ -1,14 +1,26 @@
 package com.example.ixithon.model;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public final class TravelModeModel {
   private String code;
+  private double price;
   private long time;
   private String carrierName;
-  private String depTime;
-  private String arrTime;
-  private String destinationCode;
-  private String originCode;
-  private String daysOfOperation;
+  private String duration;
+
+  public String getDuration() {
+    return duration;
+  }
+
+  public void setDuration(String duration) {
+    this.duration = duration;
+  }
 
   public String getCode() {
     return code;
@@ -34,72 +46,36 @@ public final class TravelModeModel {
     this.carrierName = carrierName;
   }
 
-  public String getDepTime() {
-    return depTime;
-  }
-
-  public void setDepTime(String depTime) {
-    this.depTime = depTime;
-  }
-
-  public String getArrTime() {
-    return arrTime;
-  }
-
-  public void setArrTime(String arrTime) {
-    this.arrTime = arrTime;
-  }
-
-  public String getDestinationCode() {
-    return destinationCode;
-  }
-
-  public void setDestinationCode(String destinationCode) {
-    this.destinationCode = destinationCode;
-  }
-
-  public String getOriginCode() {
-    return originCode;
-  }
-
-  public void setOriginCode(String originCode) {
-    this.originCode = originCode;
-  }
-
-  public String getDaysOfOperation() {
-    return daysOfOperation;
-  }
-
-  public void setDaysOfOperation(String daysOfOperation) {
-    this.daysOfOperation = daysOfOperation;
-  }
-
-  /*public static List<TravelModeModel> getListOfModeFromServer(String JSON){
-
+  public static List<TravelModeModel> getListOfModeFromServer(String JSON, String type) {
 
     List<TravelModeModel> mModeList = new ArrayList<>();
 
     try {
       JSONObject object = new JSONObject(JSON);
       JSONObject date = object.getJSONObject("data");
-      JSONArray array =  date.getJSONArray("flight");
-      for(int i =0 ; i< array.length() ; i++) {
+      JSONArray array = date.getJSONArray("routes");
+      for (int i = 0; i < array.length(); i++) {
         TravelModeModel mode = new TravelModeModel();
         JSONObject elementJson = array.getJSONObject(i);
-        city.setCityName(elementJson.getString("cityName"));
-        city.setUrl(elementJson.getString("url"));
-        city.setImageUrl(elementJson.getString("image"));
-        city.setPrice(elementJson.getInt("price"));
-        city.setCityId(elementJson.getString("cityId"));
-        city.setCountryName(elementJson.getString("countryName"));
-        city.setCurrency(elementJson.getString("currency"));
-        city.setStateName(elementJson.getString("stateName"));
-        city.setName(elementJson.getString("name"));
-        mCityList.add(city);
+        if (elementJson.getString("firstModeTypesCss").trim().equals(type.trim())) {
+          mode.setPrice(elementJson.getDouble("price"));
+          mode.setTime(elementJson.getLong("time"));
+          mode.setCarrierName(elementJson.getString("modeViaString"));
+          mode.setDuration(elementJson.getString("durationPretty"));
+          mModeList.add(mode);
+        }
       }
     } catch (JSONException e) {
       e.printStackTrace();
     }
-    return mCityList;
-  }*/
+    return mModeList;
+  }
+
+  public double getPrice() {
+    return price;
+  }
+
+  public void setPrice(double price) {
+    this.price = price;
+  }
 }
