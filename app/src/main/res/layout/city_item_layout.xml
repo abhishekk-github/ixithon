@@ -13,21 +13,21 @@
       android:layout_alignParentStart="true"
       android:layout_marginStart="27dp"
       android:layout_marginTop="23dp"
-      android:planID="@+planID/search_city_tv"/>
+      android:id="@+id/search_city_tv"/>
   <TextView
       android:text="State"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_below="@+planID/search_city_tv"
-      android:layout_alignStart="@+planID/search_city_tv"
+      android:layout_below="@+id/search_city_tv"
+      android:layout_alignStart="@+id/search_city_tv"
       android:layout_marginTop="18dp"
-      android:planID="@+planID/search_state_tv"/>
+      android:id="@+id/search_state_tv"/>
   <TextView
       android:text="Country"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_alignBottom="@+planID/search_state_tv"
+      android:layout_alignBottom="@+id/search_state_tv"
       android:layout_alignParentEnd="true"
       android:layout_marginEnd="22dp"
-      android:planID="@+planID/search_country_tv"/>
+      android:id="@+id/search_country_tv"/>
 </RelativeLayout>

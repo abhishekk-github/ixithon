@@ -3,7 +3,6 @@ package com.example.ixithon;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -19,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.example.ixithon.model.CityDescription;
+import com.example.ixithon.model.Plan;
 import com.example.ixithon.network.SingltonRequestQueue;
 
 import org.json.JSONException;
@@ -30,6 +30,7 @@ public class DetailsActivity extends AppCompatActivity {
 
   TextView name,country,Description;
   Button plan;
+  Plan myPlan;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -48,8 +49,10 @@ public class DetailsActivity extends AppCompatActivity {
     fab.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-            .setAction("Action", null).show();
+
+        Intent intent = new Intent(DetailsActivity.this, UserListActivity.class);
+        // intent.putExtra("CityID", items.getID());
+        startActivity(intent);
       }
     });
 
