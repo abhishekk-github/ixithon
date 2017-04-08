@@ -14,7 +14,6 @@ public final class UserDecisionContract {
     public static final String COLUMN_USER_ID = "USER_ID";
     public static final String COLUMN_TRAVEL_MODE_CHOICE = "TRAVEL_MODE_CHOICE";
     public static final String COLUMN_HOTEL_CHOICE = "HOTEL_CHOICE";
-    public static final String COLUMN_VISIT_LOCATIONS = "VISIT_LOCATIONS";
 
     public static final String CREATE_TABLE =
         "CREATE TABLE " + TABLE_NAME + " (" +
@@ -22,7 +21,6 @@ public final class UserDecisionContract {
             COLUMN_USER_ID + " TEXT," +
             COLUMN_TRAVEL_MODE_CHOICE + " TEXT," +
             COLUMN_HOTEL_CHOICE + " TEXT," +
-            COLUMN_VISIT_LOCATIONS + " TEXT" +
             COLUMN_PLAN_ID + " INTEGER," +
             " FOREIGN KEY (" + COLUMN_PLAN_ID + ") REFERENCES " +
             PlanListContract.PlanListEntry.TABLE_NAME + "(" + PlanListContract.PlanListEntry._ID + "))";
