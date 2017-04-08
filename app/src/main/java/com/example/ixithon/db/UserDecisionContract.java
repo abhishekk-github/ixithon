@@ -34,6 +34,6 @@ public final class UserDecisionContract {
         + COLUMN_PLAN_ID + ") "
         + "VALUES(?1, ?2, ?3, ?4);";
 
-    public static String SELECT_QUERY = "SELECT * FROM " + TABLE_NAME + ";";
+    public static String SELECT_QUERY = "SELECT * FROM " + TABLE_NAME + " where " + COLUMN_PLAN_ID + "=? ;" ;
   }
 }
