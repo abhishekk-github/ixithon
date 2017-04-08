@@ -12,16 +12,16 @@ import java.util.List;
  */
 
 public class City {
-  String cityName;
-  String url;
-  String ct;
-  String address;
-  String ID;
-  String EID;
-  String state;
-  String country;
-  Double lat,lng;
-  Integer xid;
+  private String cityName;
+  private String url;
+  private String ct;
+  private String address;
+  private String ID;
+  private String EID;
+  private String state;
+  private String country;
+  private Double lat,lng;
+  private Integer xid;
 
   public String getCityName() {
     return cityName;
