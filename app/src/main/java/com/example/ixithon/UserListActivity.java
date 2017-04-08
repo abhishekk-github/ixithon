@@ -20,18 +20,17 @@ import android.widget.Toast;
 import com.example.ixithon.model.TravellerInvite;
 import com.example.ixithon.model.UserModel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import static com.example.ixithon.LoginActivity.DUMMY_CREDENTIALS;
 
 public class UserListActivity extends AppCompatActivity {
   MyCustomAdapter dataAdapter = null;
 
-  Set<TravellerInvite> selectedInvitedList = new HashSet<>();
+  List<TravellerInvite> selectedInvitedList = new ArrayList<>();
   List<TravellerInvite> totalInvitedList = new ArrayList<>();
 
   @Override
@@ -48,7 +47,7 @@ public class UserListActivity extends AppCompatActivity {
       public void onClick(View view) {
         Intent intent = new Intent();
         Bundle bundle = new Bundle();
-        bundle.putSerializable("selectedUser", selectedInvitedList.toArray());
+        bundle.putSerializable("selectedUser", (Serializable) selectedInvitedList);
         intent.putExtras(bundle);
         setResult(1, intent);
         finish();
@@ -140,6 +139,7 @@ public class UserListActivity extends AppCompatActivity {
                 TravellerInvite item = (TravellerInvite)itr.next();
                 if(item.getTravellerID().equalsIgnoreCase(user.getUserID())){
                   selectedInvitedList.add(item);
+                  break;
                 }
               }
             }
@@ -149,6 +149,7 @@ public class UserListActivity extends AppCompatActivity {
                 TravellerInvite item = (TravellerInvite)itr.next();
                 if(item.getTravellerID().equalsIgnoreCase(user.getUserID())){
                   selectedInvitedList.remove(item);
+                  break;
                 }
               }
             }
