@@ -12,7 +12,7 @@
 
   <!-- Login progress -->
   <ProgressBar
-      android:planID="@+planID/login_progress"
+      android:id="@+id/login_progress"
       style="?android:attr/progressBarStyleLarge"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -20,12 +20,12 @@
       android:visibility="gone"/>
 
   <ScrollView
-      android:planID="@+planID/login_form"
+      android:id="@+id/login_form"
       android:layout_width="match_parent"
       android:layout_height="match_parent">
 
     <LinearLayout
-        android:planID="@+planID/email_login_form"
+        android:id="@+id/email_login_form"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -35,7 +35,7 @@
           android:layout_height="wrap_content">
 
         <AutoCompleteTextView
-            android:planID="@+planID/email"
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_email"
@@ -51,11 +51,11 @@
           android:layout_height="wrap_content">
 
         <EditText
-            android:planID="@+planID/password"
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_password"
-            android:imeActionId="@+planID/login"
+            android:imeActionId="@+id/login"
             android:imeActionLabel="@string/action_sign_in_short"
             android:text="qwerty123"
             android:imeOptions="actionUnspecified"
@@ -66,7 +66,7 @@
       </android.support.design.widget.TextInputLayout>
 
       <Button
-          android:planID="@+planID/email_sign_in_button"
+          android:id="@+id/email_sign_in_button"
           style="?android:textAppearanceSmall"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
