@@ -21,6 +21,7 @@ import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
+import com.example.ixithon.db.TravelPlanDBSource;
 import com.example.ixithon.model.CityDescription;
 import com.example.ixithon.model.Plan;
 import com.example.ixithon.model.TravellerInvite;
@@ -146,5 +147,9 @@ public class DetailsActivity extends AppCompatActivity {
     myPlan.setDestinationPoint(cityDescription.getXid().toString());
     myPlan.setStartPoint("1065223");
     myPlan.setTravellerInvites(userlist);
+    TravelPlanDBSource db = new TravelPlanDBSource(this);
+    db.openDb();
+    db.addPlan(myPlan);
+    db.closeDb();
   }
 }

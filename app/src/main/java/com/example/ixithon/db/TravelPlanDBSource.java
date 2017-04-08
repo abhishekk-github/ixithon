@@ -97,7 +97,7 @@ public final class TravelPlanDBSource {
     }
   }
 
-  private ArrayList<Plan> getPlansFromUserId(String userID) {
+  public ArrayList<Plan> getPlansFromUserId(String userID) {
     ArrayList<Long> idList = new ArrayList<>();
     Cursor cursor = null;
     try {
