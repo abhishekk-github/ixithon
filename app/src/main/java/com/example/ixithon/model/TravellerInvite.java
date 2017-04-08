@@ -1,6 +1,26 @@
 package com.example.ixithon.model;
 
 public class TravellerInvite {
+
+  public static class TravelStatus {
+    public long ACCEPTED = 0;
+    public long PENDING = 1;
+    public long DENIED = 2;
+    private long value;
+
+    public TravelStatus(long value) {
+      setValue(value);
+    }
+
+    public void setValue(long value) {
+      this.value = value;
+    }
+
+    public long getValue() {
+      return value;
+    }
+  }
+
   private long planID;
   private String travellerName;
   private String travellerID;
@@ -36,11 +56,5 @@ public class TravellerInvite {
 
   public void setStatus(TravelStatus status) {
     this.status = status;
-  }
-
-  enum TravelStatus{
-    ACCEPTED,
-    PENDING,
-    DENIED;
   }
 }
