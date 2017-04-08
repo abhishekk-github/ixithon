@@ -3,4 +3,106 @@
   <color name="colorPrimary">#3F51B5</color>
   <color name="colorPrimaryDark">#303F9F</color>
   <color name="colorAccent">#FF4081</color>
+
+  <color name="material_white">#ffffff</color>
+  <color name="material_black">#343434</color>
+  <color name="material_blue">#42A5F5</color>
+  <color name="material_app_background_gray">#f3f3f3</color>
+  <color name="material_gray">#88000000</color>
+  <color name="material_light_black">#737373</color>
+  <color name="material_text_color">#6d6d6d</color>
+  <color name="material_text_gray_color">#929292</color>
+  <color name="dshbrd_black_alfha70">#A1000000</color>
+  <color name="material_black_10_percent">#e5e5e5</color>
+  <color name="al_amcat_red_color">#FF0000</color>
+  <!--<color name="ColorPrimary">#1565C0</color>
+  <color name="ColorPrimaryDark">#0D47A1</color>-->
+  <color name="ColorPrimary">#DF2027</color>
+  <color name="ColorPrimaryDark">#cf0000</color>
+  <color name="fab_blue_normal">#3498db</color>
+  <color name="fab_blue_pressed">#2980b9</color>
+  <color name="personal_card_view_color">#0072BC</color>
+  <color name="educational_card_view_color">#03b4a2</color>
+  <color name="professional_card_view_color">#acdf1e</color>
+  <color name="job_preference_card_view_color">#fee45d</color>
+  <color name="technical_card_view_color">#fc7f3c</color>
+  <color name="score_card_view_color">#e42f40</color>
+  <color name="edit_text_hint_color">#929292</color>
+  <color name="profile_divider_color">#CDCDCD</color>
+  <color name="login_screen_button_color">#CCFFFFFF</color>
+  <color name="registration_screen_button_color">#766e6e</color>
+  <color name="redirect_text_color">#42A5F5</color>
+  <!--comments screen color-->
+  <color name="comments_ripple_color">#BC42A7F5</color>
+  <color name="comments_floating_action_button_color">#2196f3</color>
+
+  <!-- App rate-->
+  <color name="rate_this_app_text">#404040</color>
+  <color name="leave_comment">#929292</color>
+  <color name="tap_a_star">#B2B2B2</color>
+  <color name="leave_a_comment_outline">#CECECE</color>
+  <color name="leave_a_comment_box_bg">#F4F4F4</color>
+
+  <!-- default bg color for large images -->
+  <color name="bg_gray">#666666</color>
+  <color name="lighter_gray">#ddd</color>
+
+  <color name="al_error_message_color">#929292</color>
+
+  <!--Voucher Code Color Code  -->
+  <color name="vouchercode_apply_button_color">#4CBB17</color>
+  <color name="vouchercode_disable_button_color">#929292</color>
+
+  <!-- Payment Screen-->
+  <color name="payment_text_color_light">#a3a3a3</color>
+  <color name="payment_text_color_dark">#424242</color>
+  <color name="payment_pay_now_btn_clr">#00A8F1</color>
+  <color name="unread_notification_bg_color_blue">#F0F8FF</color>
+
+  <!-- View Admit Card Activity-->
+  <color name="admit_card_view_color">#90909090</color>
+
+  <!--  WelcomeScreen slider Activity-->
+  <color name="ws_login_reg_button_bg">#66000000</color>
+  <color name="ws_login_reg_view_bg">#90909090</color>
+  <color name="ws_login_register_button_text_color">#CCFFFFFF</color>
+
+  <!--activity_job_filter-->
+  <color name="job_filter_tv_color">#98000000</color>
+  <color name="job_filter_button_text_color">#ffffffff</color>
+
+  <!--activity_filteritem-->
+  <color name="filter_item_ll_background">#E6E6E6</color>
+
+  <!--home_screen_slotbooking-->
+  <color name="home_screen_slotbooking_tv_color">#A1000000</color>
+
+  <!--homescreen_Score_item-->
+  <color name="homescreen_Score_item_donut_background_color">#14000000</color>
+
+  <!--job_listitemr-->
+
+  <!--Translucent background-->
+
+  <!--course_detail-->
+  <color name="activity_course_detail_course_price_view">#fdf4f4</color>
+
+  <!--course_detail-->
+  <color name="dshbrd_black_divider_alfha">#33ffffff</color>
+
+  <color name="black_semi_transparent">#B2000000</color>
+  <color name="half_black">#808080</color>
+  <color name="white">#fafafa</color>
+  <color name="white_pressed">#f1f1f1</color>
+  <color name="job_course_dialog_divider_color">#90909090</color>
+  <color name="radio_button_color_selected_terms_conditions">#42A5F5</color>
+  <color name="radio_button_color_unselected_terms_conditions">#757575</color>
+  <color name="unread_notification_bg">#fef4f5</color>
+
+  <color name="floating_action_button_background">#aaffffff</color>
+  <color name="fab_ripple_color">#00ffffff</color>
+  <color name="jp_underline_color">#dfdfdf</color>
+
+  <color name="login_country_code_screen_toolbar">#21527b</color>
+  <color name="login_country_code_screen_statusbar">#193e5e</color>
 </resources>
