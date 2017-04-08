@@ -10,6 +10,7 @@ import android.util.Log;
 import com.example.ixithon.model.Plan;
 import com.example.ixithon.model.TravellerInvite;
 import com.example.ixithon.model.UserDecision;
+import com.example.ixithon.model.VisitLocation;
 
 import java.util.ArrayList;
 
@@ -74,6 +75,18 @@ public final class TravelPlanDBSource {
       statement.bindString(2, userDecision.getHotel());
       statement.bindString(3, userDecision.getTravelMode());
       statement.bindLong(4, planId);
+      statement.executeInsert();
+      addVisitLocations(userDecision.getVisitLocations(), userDecision.getUserID());
+    }
+  }
+
+  private void addVisitLocations(ArrayList<VisitLocation> visitLocations, String userId) {
+    SQLiteStatement statement = db.compileStatement(UserDecisionContract.UserDecisionEntry.INSERT_DATA);
+    statement.clearBindings();
+    for (VisitLocation userDecision : visitLocations) {
+      statement.bindString(1, userDecision.getUserId());
+      statement.bindString(2, userDecision.getLocation());
+      statement.bindString(3, userDecision.getLocationID());
       statement.executeInsert();
     }
   }
@@ -150,7 +163,9 @@ public final class TravelPlanDBSource {
           userDecision.setHotel(cursor.getString(cursor.getColumnIndex(UserDecisionContract.UserDecisionEntry.COLUMN_HOTEL_CHOICE)));
           userDecision.setTravelMode(cursor.getString(cursor.getColumnIndex(UserDecisionContract.UserDecisionEntry.COLUMN_TRAVEL_MODE_CHOICE)));
           userDecision.setUserID(cursor.getString(cursor.getColumnIndex(UserDecisionContract.UserDecisionEntry.COLUMN_USER_ID)));
-//          userDecision.setVisitLocations(cursor.getLong(cursor.getColumnIndex(TravellerInviteContract.TravellerInviteEntry.COLUMN_PLAN_ID)));
+
+          // todo add visit locations object
+//          userDecision.setVisitLocations(getVisit);
           userDecisions.add(userDecision);
         }
       }

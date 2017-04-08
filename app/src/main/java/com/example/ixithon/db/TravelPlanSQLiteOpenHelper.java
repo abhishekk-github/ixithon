@@ -18,6 +18,7 @@ public class TravelPlanSQLiteOpenHelper extends SQLiteOpenHelper {
     db.execSQL(PlanListContract.PlanListEntry.CREATE_TABLE);
     db.execSQL(TravellerInviteContract.TravellerInviteEntry.CREATE_TABLE);
     db.execSQL(UserDecisionContract.UserDecisionEntry.CREATE_TABLE);
+    db.execSQL(VisitLocationContract.VisitLocationEntry.CREATE_TABLE);
   }
 
   @Override
