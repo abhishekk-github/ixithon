@@ -63,7 +63,7 @@ public class ModeSelectionFragment extends Fragment {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
-    fetchDataFromServer(getArguments().getString(ARG_SOURCE_ID), getArguments().getString(ARG_DESTINATION_ID));
+    fetchDataFromServer(getArguments().getString(ARG_SOURCE_ID, "1065223"), getArguments().getString(ARG_DESTINATION_ID, "1077380"));
     View rootView = inflater.inflate(R.layout.fragment_mode, container, false);
     recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
     return rootView;
