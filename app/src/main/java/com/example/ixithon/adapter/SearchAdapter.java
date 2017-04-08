@@ -62,4 +62,7 @@ import java.util.List;
       return cityList.size();
     }
 
+  public City getItem(int position) {
+    return cityList.get(position);
+  }
 }
