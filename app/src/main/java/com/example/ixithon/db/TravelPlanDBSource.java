@@ -39,7 +39,13 @@ public final class TravelPlanDBSource {
       statement.bindString(3, plan.getDestinationPoint());
       statement.bindString(4, plan.getUserID());
       long rowId = statement.executeInsert();
-      addInvitations(plan.getTravellerInvites(), plan.getPlanID());
+      ArrayList<TravellerInvite> travellerInvites = plan.getTravellerInvites();
+      TravellerInvite travellerInvite = new TravellerInvite();
+      travellerInvite.setTravellerName(plan.getUserID());
+      travellerInvite.setTravellerID(plan.getUserID());
+      travellerInvite.setPlanID(plan.getPlanID());
+      travellerInvites.add(travellerInvite);
+      addInvitations(travellerInvites, plan.getPlanID());
       addUserDecision(plan.getUserDecisions(), plan.getPlanID());
       db.setTransactionSuccessful();
       return true;
@@ -91,33 +97,58 @@ public final class TravelPlanDBSource {
     }
   }
 
-  private ArrayList<Plan> getPlans(String userID) {
-    ArrayList<Plan> plans = new ArrayList<>();
-    Plan plan = null;
+  private ArrayList<Plan> getPlansFromUserId(String userID) {
+    ArrayList<Long> idList = new ArrayList<>();
     Cursor cursor = null;
     try {
-      cursor = db.rawQuery("select * from " + PlanListContract.PlanListEntry.TABLE_NAME + " where " + PlanListContract.PlanListEntry.COLUMN_USER_ID + "=" + userID, null);
+      cursor = db.rawQuery("select * from " + TravellerInviteContract.TravellerInviteEntry.TABLE_NAME + " where " + TravellerInviteContract.TravellerInviteEntry.COLUMN_TRAVELLER_ID + "=" + userID, null);
       while (cursor.moveToNext()) {
-        String id = cursor.getString(cursor.getColumnIndex(PlanListContract.PlanListEntry.COLUMN_USER_ID));
+        String id = cursor.getString(cursor.getColumnIndex(TravellerInviteContract.TravellerInviteEntry.COLUMN_TRAVELLER_ID));
         if (userID.equals(id)) {
-          plan = new Plan();
-          plan.setPlanID(cursor.getLong(cursor.getColumnIndex(PlanListContract.PlanListEntry._ID)));
-          plan.setUserID(cursor.getString(cursor.getColumnIndex(PlanListContract.PlanListEntry.COLUMN_USER_ID)));
-          plan.setStartPoint(cursor.getString(cursor.getColumnIndex(PlanListContract.PlanListEntry.COLUMN_START_POINT)));
-          plan.setDestinationPoint(cursor.getString(cursor.getColumnIndex(PlanListContract.PlanListEntry.COLUMN_DESTINATION_POINT)));
-
-          ArrayList<UserDecision> userDecisions = getDecisionsList(plan.getPlanID());
-          ArrayList<TravellerInvite> travellerInvites = getTravellerInvites(plan.getPlanID());
-          plan.setUserDecisions(userDecisions);
-          plan.setTravellerInvites(travellerInvites);
-          plans.add(plan);
+          long planID = cursor.getLong(cursor.getColumnIndex(TravellerInviteContract.TravellerInviteEntry.COLUMN_TRAVELLER_ID));
+          idList.add(planID);
         }
       }
     } catch (SQLiteException e) {
       Log.e(TravelPlanDBSource.class.getSimpleName(), e.getMessage());
     } finally {
       if (cursor != null && !cursor.isClosed()) cursor.close();
-      if (db != null && db.isOpen()) db.close();
+    }
+    return getPlans(idList);
+  }
+
+  public ArrayList<Plan> getPlans(ArrayList<Long> plansList) {
+    ArrayList<Plan> plans = new ArrayList<>();
+    Plan plan = null;
+    Cursor cursor = null;
+    try {
+      String query = "select * from " + PlanListContract.PlanListEntry.TABLE_NAME + " where " + PlanListContract.PlanListEntry._ID + " in (";
+      StringBuilder stringBuilder = new StringBuilder(query);
+      for (int i = 0; i< plansList.size() ; i++) {
+        if (i != 0) {
+          stringBuilder.append(",");
+        }
+        stringBuilder.append(plansList);
+      }
+      stringBuilder.append(");");
+      cursor = db.rawQuery(query, null);
+      while (cursor.moveToNext()) {
+        plan = new Plan();
+        plan.setPlanID(cursor.getLong(cursor.getColumnIndex(PlanListContract.PlanListEntry._ID)));
+        plan.setUserID(cursor.getString(cursor.getColumnIndex(PlanListContract.PlanListEntry.COLUMN_USER_ID)));
+        plan.setStartPoint(cursor.getString(cursor.getColumnIndex(PlanListContract.PlanListEntry.COLUMN_START_POINT)));
+        plan.setDestinationPoint(cursor.getString(cursor.getColumnIndex(PlanListContract.PlanListEntry.COLUMN_DESTINATION_POINT)));
+
+        ArrayList<UserDecision> userDecisions = getDecisionsList(plan.getPlanID());
+        ArrayList<TravellerInvite> travellerInvites = getTravellerInvites(plan.getPlanID());
+        plan.setUserDecisions(userDecisions);
+        plan.setTravellerInvites(travellerInvites);
+        plans.add(plan);
+      }
+    } catch (SQLiteException e) {
+      Log.e(TravelPlanDBSource.class.getSimpleName(), e.getMessage());
+    } finally {
+      if (cursor != null && !cursor.isClosed()) cursor.close();
     }
     return plans;
   }
@@ -130,7 +161,7 @@ public final class TravelPlanDBSource {
       cursor = db.rawQuery(TravellerInviteContract.TravellerInviteEntry.SELECT_QUERY, new String[]{String.valueOf(planId)});
       while (cursor.moveToNext()) {
         long id = cursor.getLong(cursor.getColumnIndex(TravellerInviteContract.TravellerInviteEntry.COLUMN_PLAN_ID));
-        if (id == planId ) {
+        if (id == planId) {
           travellerInvite = new TravellerInvite();
           travellerInvite.setPlanID(cursor.getLong(cursor.getColumnIndex(TravellerInviteContract.TravellerInviteEntry.COLUMN_PLAN_ID)));
           travellerInvite.setTravellerID(cursor.getString(cursor.getColumnIndex(TravellerInviteContract.TravellerInviteEntry.COLUMN_TRAVELLER_ID)));
@@ -144,7 +175,6 @@ public final class TravelPlanDBSource {
       Log.e(TravelPlanDBSource.class.getSimpleName(), e.getMessage());
     } finally {
       if (cursor != null && !cursor.isClosed()) cursor.close();
-      if (db != null && db.isOpen()) db.close();
     }
     return travellerInvites;
   }
@@ -157,7 +187,7 @@ public final class TravelPlanDBSource {
       cursor = db.rawQuery(UserDecisionContract.UserDecisionEntry.SELECT_QUERY, new String[]{String.valueOf(planId)});
       while (cursor.moveToNext()) {
         long id = cursor.getLong(cursor.getColumnIndex(UserDecisionContract.UserDecisionEntry.COLUMN_PLAN_ID));
-        if (id == planId ) {
+        if (id == planId) {
           userDecision = new UserDecision();
           userDecision.setPlanID(cursor.getLong(cursor.getColumnIndex(UserDecisionContract.UserDecisionEntry.COLUMN_PLAN_ID)));
           userDecision.setHotel(cursor.getString(cursor.getColumnIndex(UserDecisionContract.UserDecisionEntry.COLUMN_HOTEL_CHOICE)));
@@ -173,7 +203,6 @@ public final class TravelPlanDBSource {
       Log.e(TravelPlanDBSource.class.getSimpleName(), e.getMessage());
     } finally {
       if (cursor != null && !cursor.isClosed()) cursor.close();
-      if (db != null && db.isOpen()) db.close();
     }
     return userDecisions;
   }
