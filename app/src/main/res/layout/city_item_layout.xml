@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+
+  <TextView
+      android:text="City"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentTop="true"
+      android:layout_alignParentStart="true"
+      android:layout_marginStart="27dp"
+      android:layout_marginTop="23dp"
+      android:id="@+id/search_city_tv"/>
+  <TextView
+      android:text="State"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/search_city_tv"
+      android:layout_alignStart="@+id/search_city_tv"
+      android:layout_marginTop="18dp"
+      android:id="@+id/search_state_tv"/>
+  <TextView
+      android:text="Country"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignBottom="@+id/search_state_tv"
+      android:layout_alignParentEnd="true"
+      android:layout_marginEnd="22dp"
+      android:id="@+id/search_country_tv"/>
+</RelativeLayout>
