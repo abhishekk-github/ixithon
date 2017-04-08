@@ -19,18 +19,21 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.example.ixithon.model.CityDescription;
 import com.example.ixithon.model.Plan;
+import com.example.ixithon.model.TravellerInvite;
 import com.example.ixithon.network.SingltonRequestQueue;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 public class DetailsActivity extends AppCompatActivity {
 
   TextView name,country,Description;
-  Button plan;
+  Button planBtn;
   Plan myPlan;
+  CityDescription  cityDescription;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -41,9 +44,11 @@ public class DetailsActivity extends AppCompatActivity {
     name = (TextView) findViewById(R.id.des_name);
     country = (TextView) findViewById(R.id.des_country);
     Description = (TextView) findViewById(R.id.des_description);
-    plan = (Button) findViewById(R.id.trip_plan_btn);
+    planBtn = (Button) findViewById(R.id.trip_plan_btn);
     String s = getIntent().getStringExtra("CityID");
     fetchDataFromServer(s);
+
+    myPlan = new Plan();
 
     FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_abc);
     fab.setOnClickListener(new View.OnClickListener() {
@@ -51,12 +56,12 @@ public class DetailsActivity extends AppCompatActivity {
       public void onClick(View view) {
 
         Intent intent = new Intent(DetailsActivity.this, UserListActivity.class);
-        // intent.putExtra("CityID", items.getID());
-        startActivity(intent);
+        intent.putExtra("PlanId", myPlan.getPlanID());
+        startActivityForResult(intent,101);
       }
     });
 
-    plan.setOnClickListener(new View.OnClickListener() {
+    planBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
         Intent intent = new Intent(DetailsActivity.this, TripDetailsActivity.class);
@@ -76,7 +81,7 @@ public class DetailsActivity extends AppCompatActivity {
           @Override
           public void onResponse(String response) {
             Log.v("MSG",response);
-            CityDescription  cityDescription =  CityDescription.getCityDescriptionFromServer(response);
+            cityDescription =  CityDescription.getCityDescriptionFromServer(response);
             name.setText(cityDescription.getName());
             country.setText(cityDescription.getCountryName());
             Description.setText(cityDescription.getDescription());
@@ -100,5 +105,20 @@ public class DetailsActivity extends AppCompatActivity {
         });
     RequestQueue requestQueue = SingltonRequestQueue.getInstance(this).getRequestQueue();
     requestQueue.add(stringRequest);
+  }
+
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    Bundle bundle = data.getExtras();
+    ArrayList<TravellerInvite> userlist = new ArrayList<>();
+    if(bundle != null) {
+       userlist = (ArrayList<TravellerInvite>) bundle.getSerializable("selectedUser");
+      Log.v("msg", userlist.toString());
+    }
+    myPlan.setUserID("abhi@ixigo.com");
+    myPlan.setDestinationPoint(cityDescription.getXid().toString());
+    myPlan.setStartPoint("1065223");
+    myPlan.setTravellerInvites(userlist);
   }
 }

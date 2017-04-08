@@ -12,7 +12,7 @@ public class CityDescription {
   private String Name;
   private String countryName;
   private String description;
-  private String xid;
+  private int xid;
   private String keyImageUrl;
   private String stateName;
   private String whyToVisit;
@@ -51,11 +51,11 @@ public class CityDescription {
     this.description = description;
   }
 
-  public String getXid() {
+  public Integer getXid() {
     return xid;
   }
 
-  public void setXid(String xid) {
+  public void setXid(int xid) {
     this.xid = xid;
   }
 
@@ -107,7 +107,7 @@ public class CityDescription {
       JSONObject elementJson =  object.getJSONObject("data");
       cityDescription.setCountryName(elementJson.getString("countryName"));
       cityDescription.setDescription(elementJson.getString("description"));
-      cityDescription.setXid(elementJson.getString("xid"));
+      cityDescription.setXid(elementJson.getInt("xid"));
       cityDescription.setKeyImageUrl(elementJson.getString("keyImageUrl"));
       cityDescription.setId(elementJson.getString("id"));
       cityDescription.setStateName(elementJson.getString("stateName"));
