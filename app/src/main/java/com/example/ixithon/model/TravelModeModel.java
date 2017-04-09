@@ -58,11 +58,16 @@ public final class TravelModeModel {
         TravelModeModel mode = new TravelModeModel();
         JSONObject elementJson = array.getJSONObject(i);
         if (elementJson.getString("firstModeTypesCss").trim().equals(type.trim())) {
-          mode.setPrice(elementJson.getDouble("price"));
-          mode.setTime(elementJson.getLong("time"));
-          mode.setCarrierName(elementJson.getString("modeViaString"));
-          mode.setDuration(elementJson.getString("durationPretty"));
-          mModeList.add(mode);
+          JSONObject firstStepsJson = elementJson.getJSONObject("firstStep");
+          JSONArray carriersArray = firstStepsJson.getJSONArray("carriers");
+          for (int j =0 ; j< carriersArray.length(); j++) {
+            JSONObject object1 = carriersArray.getJSONObject(i);
+            mode.setPrice(object1.getDouble("price"));
+            mode.setTime(object1.getLong("time"));
+            mode.setCarrierName(object1.getString("carrierName"));
+            mode.setDuration(object1.getString("code"));
+            mModeList.add(mode);
+          }
         }
       }
     } catch (JSONException e) {
