@@ -1,52 +1,59 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:paddingBottom="@dimen/activity_vertical_margin"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                tools:context="com.example.ixithon.fragment.PlaceholderFragment">
-  <android.support.v7.widget.CardView
-      android:id="@+id/card_view_roles"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      android:background="#FF48FF"
-      style="@style/MatarialCardViewStyle"
-      card_view:contentPadding="@dimen/standard_2dp">
-    <EditText
-        android:id="@+id/inputSearch"
-        android:hint="Search Destination"
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/standard_50dp"
-        android:drawableLeft="@android:drawable/ic_menu_search"
-        android:focusable="true"
-        android:textSize="14dp"
-        android:padding="@dimen/standard_8dp"/>
-  </android.support.v7.widget.CardView>
-  <android.support.v7.widget.RecyclerView
-      android:id="@+id/search_result_recycler_view"
-      android:layout_below="@+id/card_view_roles"
-      android:layout_width="match_parent"
-      android:layout_height="400dp"
-      android:visibility="gone"
-      android:scrollbars="vertical"/>
+                android:descendantFocusability="beforeDescendants"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                tools:context="com.example.ixithon.fragment.PlanYourTripFragment">
 
-  <android.support.v7.widget.CardView
-      android:id="@+id/card_view_roles_fav"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      android:background="#FF48FF"
-      android:layout_below="@+id/search_result_recycler_view"
-      style="@style/MatarialCardViewStyle"
-      card_view:contentPadding="@dimen/standard_2dp">
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view_roles"
+        style="@style/MatarialCardViewStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#FF48FF"
+        card_view:contentPadding="@dimen/standard_2dp">
+
+        <EditText
+            android:id="@+id/inputSearch"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/standard_50dp"
+            android:drawableLeft="@android:drawable/ic_menu_search"
+            android:focusable="true"
+            android:hint="Search Destination"
+            android:padding="@dimen/standard_8dp"
+            android:textSize="14dp"/>
+    </android.support.v7.widget.CardView>
+
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/insipire_recycler_view"
-        android:layout_width="wrap_content"
-        android:layout_height="300dp"
-        android:scrollbars="vertical"/>
-  </android.support.v7.widget.CardView>
+        android:id="@+id/search_result_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_below="@+id/card_view_roles"
+        android:scrollbars="vertical"
+        android:visibility="gone"/>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view_roles_fav"
+        style="@style/MatarialCardViewStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search_result_recycler_view"
+        android:layout_gravity="center"
+        android:background="#FF48FF"
+        card_view:contentPadding="@dimen/standard_2dp">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/insipire_recycler_view"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:scrollbars="vertical"/>
+    </android.support.v7.widget.CardView>
 </RelativeLayout>

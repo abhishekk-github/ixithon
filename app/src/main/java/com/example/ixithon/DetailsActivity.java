@@ -36,17 +36,18 @@ import java.util.ArrayList;
 
 public class DetailsActivity extends AppCompatActivity {
 
-  TextView name,country,Description;
+  TextView name, country, Description;
   Button planBtn;
   Plan myPlan;
   ImageView mImageView;
   Toolbar toolbar;
-  CityDescription  cityDescription;
+  CityDescription cityDescription;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_details);
-     toolbar = (Toolbar) findViewById(R.id.toolbar);
+    toolbar = (Toolbar) findViewById(R.id.toolbar);
 
     setSupportActionBar(toolbar);
     mImageView = (ImageView) findViewById(R.id.image_id);
@@ -66,7 +67,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         Intent intent = new Intent(DetailsActivity.this, UserListActivity.class);
         intent.putExtra("PlanId", myPlan.getPlanID());
-        startActivityForResult(intent,101);
+        startActivityForResult(intent, 101);
       }
     });
 
@@ -74,12 +75,12 @@ public class DetailsActivity extends AppCompatActivity {
       @Override
       public void onClick(View view) {
 
-        if(cityDescription.getDescription() == null){
-          Toast.makeText(DetailsActivity.this,"Cannot plan for this location",Toast.LENGTH_SHORT).show();
+        if (cityDescription.getDescription() == null) {
+          Toast.makeText(DetailsActivity.this, "Cannot plan for this location", Toast.LENGTH_SHORT).show();
           return;
         }
         Intent intent = new Intent(DetailsActivity.this, TripDetailsActivity.class);
-       // intent.putExtra("CityID", items.getID());
+        // intent.putExtra("CityID", items.getID());
         startActivity(intent);
       }
     });
@@ -89,27 +90,26 @@ public class DetailsActivity extends AppCompatActivity {
    * this will fetch the responce from the list of items to be displayed.
    */
   private void fetchDataFromServer(String cityid) {
-    String JSON_URL = "http://build2.ixigo.com/api/v3/namedentities/id/"+cityid+"?apiKey=ixicode!2$";
-    StringRequest stringRequest = new StringRequest(JSON_URL.replace(" ",""),
+    String JSON_URL = "http://build2.ixigo.com/api/v3/namedentities/id/" + cityid + "?apiKey=ixicode!2$";
+    StringRequest stringRequest = new StringRequest(JSON_URL.replace(" ", ""),
         new Response.Listener<String>() {
           @Override
           public void onResponse(String response) {
-            Log.v("MSG",response);
-            cityDescription =  CityDescription.getCityDescriptionFromServer(response);
+            Log.v("MSG", response);
+            cityDescription = CityDescription.getCityDescriptionFromServer(response);
             name.setText(cityDescription.getName());
             toolbar.setTitle(cityDescription.getName());
             country.setText(cityDescription.getCountryName());
-            if(cityDescription != null && cityDescription.getDescription() != null) {
+            if (cityDescription != null && cityDescription.getDescription() != null) {
               if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 Description.setText(Html.fromHtml(cityDescription.getDescription(), Html.FROM_HTML_MODE_COMPACT));
               } else {
                 Description.setText(Html.fromHtml(cityDescription.getDescription()));
               }
-            }
-            else{
+            } else {
               Description.setText("Cannot find description for  this location");
             }
-            Picasso.with(DetailsActivity.this).load(cityDescription.getKeyImageUrl()).placeholder(R.drawable.progress_animation ).into(mImageView);
+            Picasso.with(DetailsActivity.this).load(cityDescription.getKeyImageUrl()).placeholder(R.drawable.progress_animation).into(mImageView);
 
           }
         },
@@ -138,9 +138,9 @@ public class DetailsActivity extends AppCompatActivity {
     super.onActivityResult(requestCode, resultCode, data);
 
     ArrayList<TravellerInvite> userlist = new ArrayList<>();
-    if(data != null && data.getExtras()!= null ) {
+    if (data != null && data.getExtras() != null) {
       Bundle bundle = data.getExtras();
-       userlist = (ArrayList<TravellerInvite>) bundle.getSerializable("selectedUser");
+      userlist = (ArrayList<TravellerInvite>) bundle.getSerializable("selectedUser");
       Log.v("msg", userlist.toString());
     }
     myPlan.setUserID("abhi@ixigo.com");

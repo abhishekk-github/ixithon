@@ -14,6 +14,36 @@ public final class TravelModeModel {
   private String carrierName;
   private String duration;
 
+  public static List<TravelModeModel> getListOfModeFromServer(String JSON, String type) {
+
+    List<TravelModeModel> mModeList = new ArrayList<>();
+
+    try {
+      JSONObject object = new JSONObject(JSON);
+      JSONObject date = object.getJSONObject("data");
+      JSONArray array = date.getJSONArray("routes");
+      for (int i = 0; i < array.length(); i++) {
+        JSONObject elementJson = array.getJSONObject(i);
+        if (elementJson.getString("firstModeTypesCss").trim().equals(type.trim())) {
+          JSONObject firstStepsJson = elementJson.getJSONObject("firstStep");
+          JSONArray carriersArray = firstStepsJson.getJSONArray("carriers");
+          for (int j = 0; j < carriersArray.length(); j++) {
+            JSONObject object1 = carriersArray.getJSONObject(j);
+            TravelModeModel mode = new TravelModeModel();
+            mode.setPrice(object1.optDouble("price", 0));
+            mode.setTime(object1.getLong("time"));
+            mode.setCarrierName(object1.getString("carrierName"));
+            mode.setDuration(object1.getString("code"));
+            mModeList.add(mode);
+          }
+        }
+      }
+    } catch (JSONException e) {
+      e.printStackTrace();
+    }
+    return mModeList;
+  }
+
   public String getDuration() {
     return duration;
   }
@@ -44,36 +74,6 @@ public final class TravelModeModel {
 
   public void setCarrierName(String carrierName) {
     this.carrierName = carrierName;
-  }
-
-  public static List<TravelModeModel> getListOfModeFromServer(String JSON, String type) {
-
-    List<TravelModeModel> mModeList = new ArrayList<>();
-
-    try {
-      JSONObject object = new JSONObject(JSON);
-      JSONObject date = object.getJSONObject("data");
-      JSONArray array = date.getJSONArray("routes");
-      for (int i = 0; i < array.length(); i++) {
-        TravelModeModel mode = new TravelModeModel();
-        JSONObject elementJson = array.getJSONObject(i);
-        if (elementJson.getString("firstModeTypesCss").trim().equals(type.trim())) {
-          JSONObject firstStepsJson = elementJson.getJSONObject("firstStep");
-          JSONArray carriersArray = firstStepsJson.getJSONArray("carriers");
-          for (int j =0 ; j< carriersArray.length(); j++) {
-            JSONObject object1 = carriersArray.getJSONObject(i);
-            mode.setPrice(object1.getDouble("price"));
-            mode.setTime(object1.getLong("time"));
-            mode.setCarrierName(object1.getString("carrierName"));
-            mode.setDuration(object1.getString("code"));
-            mModeList.add(mode);
-          }
-        }
-      }
-    } catch (JSONException e) {
-      e.printStackTrace();
-    }
-    return mModeList;
   }
 
   public double getPrice() {

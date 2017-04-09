@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.ixithon.fragment.MyTripFrag;
-import com.example.ixithon.fragment.PlaceholderFragment;
+import com.example.ixithon.fragment.PlanYourTripFragment;
 
 /**
  * Created by abhishek on 8/4/17.
@@ -28,7 +28,7 @@ import com.example.ixithon.fragment.PlaceholderFragment;
 
 
       if (position == 0 ){
-        return PlaceholderFragment.newInstance(position + 1);
+        return PlanYourTripFragment.newInstance(position + 1);
       }else{
         return MyTripFrag.newInstance("","");
       }
