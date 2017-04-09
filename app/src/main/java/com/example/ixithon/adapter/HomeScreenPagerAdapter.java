@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.example.ixithon.fragment.MyTripFrag;
 import com.example.ixithon.fragment.PlaceholderFragment;
 
 /**
@@ -24,7 +25,13 @@ import com.example.ixithon.fragment.PlaceholderFragment;
     public Fragment getItem(int position) {
       // getItem is called to instantiate the fragment for the given page.
       // Return a ModeSelectionFragment (defined as a static inner class below).
-      return PlaceholderFragment.newInstance(position + 1);
+
+
+      if (position == 0 ){
+        return PlaceholderFragment.newInstance(position + 1);
+      }else{
+        return MyTripFrag.newInstance("","");
+      }
     }
 
     @Override

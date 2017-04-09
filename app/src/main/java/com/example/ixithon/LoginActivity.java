@@ -55,6 +55,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
       "ddd@example.com:world",
       "eee@example.com:world"
   };
+
+  public static String UserName;
   /**
    * Keep track of the login task to ensure we can cancel it if requested.
    */
@@ -323,6 +325,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         String[] pieces = credential.split(":");
         if (pieces[0].equals(mEmail)) {
           // Account exists, return true if the password matches.
+          UserName = mEmail;
           return pieces[1].equals(mPassword);
         }
       }

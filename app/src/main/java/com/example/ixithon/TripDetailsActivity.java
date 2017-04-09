@@ -44,10 +44,7 @@ public class TripDetailsActivity extends AppCompatActivity {
     });
 
 
-    TravelPlanDBSource db = new TravelPlanDBSource(this);
-    db.openDb();
-    List<Plan> myPlan = db.getPlansFromUserId("abhi@ixigo.com");
-    db.closeDb();
+
   }
 
 }

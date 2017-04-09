@@ -1,0 +1,25 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             xmlns:card_view="http://schemas.android.com/apk/res-auto"
+             tools:context="com.example.ixithon.fragment.MyTripFrag">
+
+  <android.support.v7.widget.CardView
+      android:id="@+id/card_view_rolestv"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:background="#FF48FF"
+      style="@style/MatarialCardViewStyle"
+      card_view:contentPadding="@dimen/standard_2dp">
+    <TextView
+        android:id="@+id/mytriptv"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/standard_50dp"
+        android:text="New Added Trip"
+        android:focusable="true"
+        android:textSize="14dp"
+        android:padding="@dimen/standard_8dp"/>
+  </android.support.v7.widget.CardView>
+
+</FrameLayout>
