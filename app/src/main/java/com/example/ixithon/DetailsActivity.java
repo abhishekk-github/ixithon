@@ -1,14 +1,18 @@
 package com.example.ixithon;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.RequestQueue;
@@ -17,10 +21,12 @@ import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
+import com.example.ixithon.db.TravelPlanDBSource;
 import com.example.ixithon.model.CityDescription;
 import com.example.ixithon.model.Plan;
 import com.example.ixithon.model.TravellerInvite;
 import com.example.ixithon.network.SingltonRequestQueue;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,14 +39,17 @@ public class DetailsActivity extends AppCompatActivity {
   TextView name,country,Description;
   Button planBtn;
   Plan myPlan;
+  ImageView mImageView;
+  Toolbar toolbar;
   CityDescription  cityDescription;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_details);
-    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-    setSupportActionBar(toolbar);
+     toolbar = (Toolbar) findViewById(R.id.toolbar);
 
+    setSupportActionBar(toolbar);
+    mImageView = (ImageView) findViewById(R.id.image_id);
     name = (TextView) findViewById(R.id.des_name);
     country = (TextView) findViewById(R.id.des_country);
     Description = (TextView) findViewById(R.id.des_description);
@@ -64,6 +73,11 @@ public class DetailsActivity extends AppCompatActivity {
     planBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
+
+        if(cityDescription.getDescription() == null){
+          Toast.makeText(DetailsActivity.this,"Cannot plan for this location",Toast.LENGTH_SHORT).show();
+          return;
+        }
         Intent intent = new Intent(DetailsActivity.this, TripDetailsActivity.class);
        // intent.putExtra("CityID", items.getID());
         startActivity(intent);
@@ -83,8 +97,20 @@ public class DetailsActivity extends AppCompatActivity {
             Log.v("MSG",response);
             cityDescription =  CityDescription.getCityDescriptionFromServer(response);
             name.setText(cityDescription.getName());
+            toolbar.setTitle(cityDescription.getName());
             country.setText(cityDescription.getCountryName());
-            Description.setText(cityDescription.getDescription());
+            if(cityDescription != null && cityDescription.getDescription() != null) {
+              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Description.setText(Html.fromHtml(cityDescription.getDescription(), Html.FROM_HTML_MODE_COMPACT));
+              } else {
+                Description.setText(Html.fromHtml(cityDescription.getDescription()));
+              }
+            }
+            else{
+              Description.setText("Cannot find description for  this location");
+            }
+            Picasso.with(DetailsActivity.this).load(cityDescription.getKeyImageUrl()).placeholder(R.drawable.progress_animation ).into(mImageView);
+
           }
         },
         new Response.ErrorListener() {
@@ -110,9 +136,10 @@ public class DetailsActivity extends AppCompatActivity {
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
-    Bundle bundle = data.getExtras();
+
     ArrayList<TravellerInvite> userlist = new ArrayList<>();
-    if(bundle != null) {
+    if(data != null && data.getExtras()!= null ) {
+      Bundle bundle = data.getExtras();
        userlist = (ArrayList<TravellerInvite>) bundle.getSerializable("selectedUser");
       Log.v("msg", userlist.toString());
     }
@@ -120,5 +147,9 @@ public class DetailsActivity extends AppCompatActivity {
     myPlan.setDestinationPoint(cityDescription.getXid().toString());
     myPlan.setStartPoint("1065223");
     myPlan.setTravellerInvites(userlist);
+    TravelPlanDBSource db = new TravelPlanDBSource(this);
+    db.openDb();
+    db.addPlan(myPlan);
+    db.closeDb();
   }
 }

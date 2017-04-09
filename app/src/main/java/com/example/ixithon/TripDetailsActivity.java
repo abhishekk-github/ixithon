@@ -7,6 +7,11 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.example.ixithon.db.TravelPlanDBSource;
+import com.example.ixithon.model.Plan;
+
+import java.util.List;
+
 public class TripDetailsActivity extends AppCompatActivity {
 
   CardView hotels,mode,placetovisit;
@@ -38,6 +43,11 @@ public class TripDetailsActivity extends AppCompatActivity {
       }
     });
 
+
+    TravelPlanDBSource db = new TravelPlanDBSource(this);
+    db.openDb();
+    List<Plan> myPlan = db.getPlansFromUserId("abhi@ixigo.com");
+    db.closeDb();
   }
 
 }

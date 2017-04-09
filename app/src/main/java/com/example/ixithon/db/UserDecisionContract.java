@@ -17,7 +17,7 @@ public final class UserDecisionContract {
 
     public static final String CREATE_TABLE =
         "CREATE TABLE " + TABLE_NAME + " (" +
-            _ID + " INTEGER PRIMARY KEY AUTO INCREMENT," +
+            _ID + " INTEGER PRIMARY KEY," +
             COLUMN_USER_ID + " TEXT," +
             COLUMN_TRAVEL_MODE_CHOICE + " TEXT," +
             COLUMN_HOTEL_CHOICE + " TEXT," +
